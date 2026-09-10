@@ -1,0 +1,22 @@
+name: Publish Release
+on:
+  push:
+    branches: [main]
+    paths: ["resume.pdf"]
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update latest release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest Resume
+          body: Latest version. Auto-published.
+          files: resume.pdf
